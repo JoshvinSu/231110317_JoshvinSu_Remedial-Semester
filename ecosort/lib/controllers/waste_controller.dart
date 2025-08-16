@@ -4,13 +4,19 @@ import 'package:get/get.dart';
 import '../models/waste_entry.dart';
 
 class WasteController extends GetxController {
-  // Gunakan .obs untuk membuat list ini reaktif
   var wasteEntries = <WasteEntry>[].obs;
 
-  // Method untuk menambahkan data
   void addEntry(WasteEntry entry) {
     wasteEntries.add(entry);
   }
 
-  // TODO: Kamu bisa menambahkan method lain seperti hapus atau edit data di sini
+  // --> PASTIKAN METHOD INI ADA <--
+  void deleteEntry(String id) {
+    wasteEntries.removeWhere((entry) => entry.id == id);
+  }
+
+  // --> PASTIKAN METHOD INI JUGA ADA <--
+  void insertEntry(int index, WasteEntry entry) {
+    wasteEntries.insert(index, entry);
+  }
 }

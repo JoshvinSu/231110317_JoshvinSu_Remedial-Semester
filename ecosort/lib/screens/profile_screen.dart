@@ -14,7 +14,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfileController profileController = Get.put(ProfileController());
-    final NotificationController notificationController = Get.put(NotificationController());
+    final NotificationController notificationController = Get.put(
+      NotificationController(),
+    );
 
     return Scaffold(
       appBar: AppBar(title: Text('profile'.tr)),
@@ -32,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
                     backgroundImage: imageFile != null
                         ? FileImage(imageFile)
                         : const NetworkImage('https://i.pravatar.cc/150?img=3')
-                            as ImageProvider,
+                              as ImageProvider,
                     child: const Align(
                       alignment: Alignment.bottomRight,
                       child: CircleAvatar(
@@ -73,16 +75,18 @@ class ProfileScreen extends StatelessWidget {
               Get.to(() => const ChangePasswordScreen());
             },
           ),
-          Obx(() => ListTile(
-                leading: const Icon(Icons.notifications),
-                title: Text('notifications'.tr),
-                trailing: Switch(
-                  value: notificationController.isNotificationEnabled.value,
-                  onChanged: (value) {
-                    notificationController.toggleNotification(value);
-                  },
-                ),
-              )),
+          Obx(
+            () => ListTile(
+              leading: const Icon(Icons.notifications),
+              title: Text('notifications'.tr),
+              trailing: Switch(
+                value: notificationController.isNotificationEnabled.value,
+                onChanged: (value) {
+                  notificationController.toggleNotification(value);
+                },
+              ),
+            ),
+          ),
           ListTile(
             leading: const Icon(Icons.language),
             title: Text('language'.tr),
