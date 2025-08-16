@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         tooltip: 'Tambah Catatan Baru',
         onPressed: () {
-          Get.to(() => AddEntryScreen());
+          Get.to(() => const AddEntryScreen());
         },
         child: const Icon(Icons.add),
       ),

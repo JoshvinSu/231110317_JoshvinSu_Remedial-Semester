@@ -1,7 +1,9 @@
 // File: lib/screens/profile_screen.dart
 
 import 'dart:io';
+import 'package:ecosort/screens/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -42,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundImage: _profileImage != null
                       ? FileImage(_profileImage!)
                       : const NetworkImage('https://i.pravatar.cc/150?img=3')
-                            as ImageProvider,
+                          as ImageProvider,
                   child: const Align(
                     alignment: Alignment.bottomRight,
                     child: CircleAvatar(
@@ -72,7 +74,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             leading: const Icon(Icons.person),
             title: const Text('Edit Profil'),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () {},
+            onTap: () async {
+              final result = await Get.to(() => EditProfileScreen(
+                    profileImage: _profileImage,
+                  ));
+              if (result != null) {
+                setState(() {
+                  _profileImage = result;
+                });
+              }
+            },
           ),
           ListTile(
             leading: const Icon(Icons.lock),
