@@ -1,6 +1,7 @@
 // File: lib/screens/guide_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GuideScreen extends StatelessWidget {
   const GuideScreen({super.key});
@@ -8,77 +9,65 @@ class GuideScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Panduan Daur Ulang')),
+      appBar: AppBar(title: Text('guide_title'.tr)),
       body: ListView(
-        children: const <Widget>[
+        children: <Widget>[
           Card(
-            margin: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
             child: ExpansionTile(
-              leading: Icon(Icons.eco, color: Colors.green),
+              leading: const Icon(Icons.eco, color: Colors.green),
               title: Text(
-                'Sampah Organik',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                'organic_waste'.tr,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
                 ListTile(
-                  title: Text('Apa saja yang termasuk?'),
-                  subtitle: Text(
-                    'Sisa makanan, daun kering, sayuran, buah-buahan, ampas kopi/teh.',
-                  ),
+                  title: Text('what_includes'.tr),
+                  subtitle: Text('organic_includes'.tr),
                 ),
                 ListTile(
-                  title: Text('Apa yang tidak termasuk?'),
-                  subtitle: Text(
-                    'Plastik, kaleng, kaca, bahan kimia, popok bekas.',
-                  ),
+                  title: Text('what_not_includes'.tr),
+                  subtitle: Text('organic_not_includes'.tr),
                 ),
               ],
             ),
           ),
           Card(
-            margin: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
             child: ExpansionTile(
-              leading: Icon(Icons.local_drink, color: Colors.blue),
+              leading: const Icon(Icons.local_drink, color: Colors.blue),
               title: Text(
-                'Sampah Plastik',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                'plastic_waste'.tr,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
                 ListTile(
-                  title: Text('Apa saja yang termasuk?'),
-                  subtitle: Text(
-                    'Botol plastik, kemasan makanan, tas kresek, wadah plastik.',
-                  ),
+                  title: Text('what_includes'.tr),
+                  subtitle: Text('plastic_includes'.tr),
                 ),
                 ListTile(
-                  title: Text('Apa yang tidak termasuk?'),
-                  subtitle: Text(
-                    'Kertas, sisa makanan, baterai, barang elektronik.',
-                  ),
+                  title: Text('what_not_includes'.tr),
+                  subtitle: Text('plastic_not_includes'.tr),
                 ),
               ],
             ),
           ),
           Card(
-            margin: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
             child: ExpansionTile(
-              leading: Icon(Icons.book, color: Colors.brown),
+              leading: const Icon(Icons.book, color: Colors.brown),
               title: Text(
-                'Sampah Kertas',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                'paper_waste'.tr,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
                 ListTile(
-                  title: Text('Apa saja yang termasuk?'),
-                  subtitle: Text(
-                    'Koran, majalah, kardus, kertas HVS, buku tulis.',
-                  ),
+                  title: Text('what_includes'.tr),
+                  subtitle: Text('paper_includes'.tr),
                 ),
                 ListTile(
-                  title: Text('Apa yang tidak termasuk?'),
-                  subtitle: Text(
-                    'Kertas thermal (struk), kertas berminyak, tisu bekas, styrofoam.',
-                  ),
+                  title: Text('what_not_includes'.tr),
+                  subtitle: Text('paper_not_includes'.tr),
                 ),
               ],
             ),

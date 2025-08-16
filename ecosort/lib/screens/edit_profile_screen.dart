@@ -1,42 +1,17 @@
 // File: lib/screens/edit_profile_screen.dart
 
-import 'dart:io';
-
+import 'package:ecosort/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  final File? profileImage;
-
-  const EditProfileScreen({super.key, this.profileImage});
-
-  @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
-}
-
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  File? _profileImage;
-
-  @override
-  void initState() {
-    super.initState();
-    _profileImage = widget.profileImage;
-  }
-
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _profileImage = File(pickedFile.path);
-      });
-    }
-  }
+class EditProfileScreen extends StatelessWidget {
+  const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Gunakan Get.find() untuk mendapatkan instance controller yang sudah ada
+    final ProfileController controller = Get.find();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Profil'),
@@ -44,7 +19,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              Get.back(result: _profileImage);
+              // Cukup kembali ke halaman sebelumnya.
+              // Perubahan gambar sudah tersimpan di controller.
+              Get.back();
             },
           ),
         ],
@@ -53,31 +30,39 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            GestureDetector(
-              onTap: _pickImage,
-              child: CircleAvatar(
-                radius: 80,
-                backgroundImage: _profileImage != null
-                    ? FileImage(_profileImage!)
-                    : const NetworkImage('https://i.pravatar.cc/150?img=3')
-                        as ImageProvider,
-                child: const Align(
-                  alignment: Alignment.bottomRight,
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.edit,
-                      size: 20,
-                      color: Colors.black,
+            // Bungkus dengan Obx agar UI di sini juga ikut berubah
+            Obx(() {
+              final imageFile = controller.profileImage;
+              return GestureDetector(
+                onTap: () {
+                  controller.pickImage();
+                },
+                child: CircleAvatar(
+                  radius: 80,
+                  backgroundImage: imageFile != null
+                      ? FileImage(imageFile)
+                      : const NetworkImage('https://i.pravatar.cc/150?img=3')
+                          as ImageProvider,
+                  child: const Align(
+                    alignment: Alignment.bottomRight,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.edit,
+                        size: 20,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _pickImage,
+              onPressed: () {
+                controller.pickImage();
+              },
               child: const Text('Pilih Gambar dari Galeri'),
             ),
           ],

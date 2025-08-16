@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../controllers/waste_controller.dart';
 import '../models/waste_entry.dart';
 import 'dart:math';
+import 'package:intl/intl.dart';
 
-// POKOK PEMBAHASAN: StatefulWidget
 class AddEntryScreen extends StatefulWidget {
   const AddEntryScreen({super.key});
 
@@ -17,11 +17,10 @@ class AddEntryScreen extends StatefulWidget {
 class _AddEntryScreenState extends State<AddEntryScreen> {
   final WasteController wasteController = Get.find();
   final _descriptionController = TextEditingController();
-  String _selectedWasteType = 'Plastik'; // Default value
+  String _selectedWasteType = 'Plastik';
   DateTime _selectedDate = DateTime.now();
 
   void _presentDatePicker() {
-    // POKOK PEMBAHASAN: DatePicker
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -51,12 +50,11 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
 
     wasteController.addEntry(newEntry);
 
-    Get.back(); // Kembali ke halaman sebelumnya
+    Get.back();
 
-    // POKOK PEMBAHASAN: UI Feedback (SnackBar)
     Get.snackbar(
-      'Berhasil',
-      'Catatan sampah berhasil ditambahkan!',
+      'success'.tr,
+      'add_success_message'.tr,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.green,
       colorText: Colors.white,
@@ -67,15 +65,14 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Catatan Sampah'),
+        title: Text('add_entry_title'.tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Pilih Jenis Sampah:', style: TextStyle(fontSize: 16)),
-            // POKOK PEMBAHASAN: Radio Buttons
+            Text('choose_waste_type'.tr, style: const TextStyle(fontSize: 16)),
             Row(
               children: [
                 Radio<String>(
@@ -83,55 +80,46 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                   groupValue: _selectedWasteType,
                   onChanged: (value) => setState(() => _selectedWasteType = value!),
                 ),
-                const Text('Plastik'),
+                Text('plastic'.tr),
                 Radio<String>(
                   value: 'Kertas',
                   groupValue: _selectedWasteType,
                   onChanged: (value) => setState(() => _selectedWasteType = value!),
                 ),
-                const Text('Kertas'),
+                Text('paper'.tr),
                 Radio<String>(
                   value: 'Organik',
                   groupValue: _selectedWasteType,
                   onChanged: (value) => setState(() => _selectedWasteType = value!),
                 ),
-                const Text('Organik'),
+                Text('organic'.tr),
               ],
             ),
             const SizedBox(height: 20),
-
-            // POKOK PEMBAHASAN: TextField
             TextField(
               controller: _descriptionController,
-              decoration: const InputDecoration(
-                labelText: 'Deskripsi / Berat Sampah',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: 'description_hint'.tr,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20),
-
-            // POKOK PEMBAHASAN: DropDown Button (Alternatif dari Chips/Switch)
-            // TODO: Kamu bisa implementasikan DropdownButton di sini untuk memilih lokasi.
-            // Sebagai contoh, saya tetap menggunakan DatePicker
-            
             Row(
               children: [
-                Text( 'Tanggal: ${_selectedDate.toLocal()}'.split(' ')[0] ),
+                Expanded(child: Text('${'date'.tr}: ${DateFormat.yMd().format(_selectedDate)}')),
                 TextButton(
                   onPressed: _presentDatePicker,
-                  child: const Text('Pilih Tanggal', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text('choose_date'.tr, style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
-
             const SizedBox(height: 30),
-            // POKOK PEMBAHASAN: Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _submitData,
                 style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 15)),
-                child: const Text('Simpan Catatan'),
+                child: Text('save'.tr),
               ),
             ),
           ],
