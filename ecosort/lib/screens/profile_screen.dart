@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:ecosort/controllers/notification_controller.dart';
 import 'package:ecosort/controllers/profile_controller.dart';
+import 'package:ecosort/controllers/theme_controller.dart';
 import 'package:ecosort/screens/change_password_screen.dart';
 import 'package:ecosort/screens/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
     final NotificationController notificationController = Get.put(
       NotificationController(),
     );
+    final ThemeController themeController = Get.find();
 
     return Scaffold(
       appBar: AppBar(title: Text('profile'.tr)),
@@ -94,6 +96,22 @@ class ProfileScreen extends StatelessWidget {
             onTap: () {
               _showLanguageDialog(context);
             },
+          ),
+          Obx(
+            () => ListTile(
+              leading: Icon(
+                themeController.isDarkMode.value
+                    ? Icons.dark_mode
+                    : Icons.light_mode,
+              ),
+              title: const Text('Mode Gelap'),
+              trailing: Switch(
+                value: themeController.isDarkMode.value,
+                onChanged: (value) {
+                  themeController.toggleTheme();
+                },
+              ),
+            ),
           ),
           const Divider(),
           ListTile(
