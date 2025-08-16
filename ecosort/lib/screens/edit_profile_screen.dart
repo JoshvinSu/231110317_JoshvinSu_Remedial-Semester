@@ -42,17 +42,13 @@ class EditProfileScreen extends StatelessWidget {
                   backgroundImage: imageFile != null
                       ? FileImage(imageFile)
                       : const NetworkImage('https://i.pravatar.cc/150?img=3')
-                          as ImageProvider,
+                            as ImageProvider,
                   child: const Align(
                     alignment: Alignment.bottomRight,
                     child: CircleAvatar(
                       radius: 20,
                       backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.edit,
-                        size: 20,
-                        color: Colors.black,
-                      ),
+                      child: Icon(Icons.edit, size: 20, color: Colors.black),
                     ),
                   ),
                 ),

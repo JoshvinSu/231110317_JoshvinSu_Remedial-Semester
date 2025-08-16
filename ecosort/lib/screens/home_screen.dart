@@ -1,8 +1,11 @@
 // File: lib/screens/home_screen.dart
 
+import 'package:ecosort/controllers/profile_controller.dart';
 import 'package:ecosort/screens/about_screen.dart';
 import 'package:ecosort/screens/guide_screen.dart';
 import 'package:ecosort/screens/profile_screen.dart';
+import 'package:ecosort/screens/reward_screen.dart';
+import 'package:ecosort/screens/rewards_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -13,28 +16,56 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final WasteController wasteController = Get.find();
+  final ProfileController profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('dashboard_title'.tr),
-        actions: [
-          PopupMenuButton(
-            onSelected: (value) {
-              if (value == 1) {
+      appBar: AppBar(title: Text('dashboard_title'.tr)),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Obx(() {
+              final imageFile = profileController.profileImage;
+              return UserAccountsDrawerHeader(
+                accountName: const Text('Joshvin Su'),
+                accountEmail: const Text('joshvinsu@example.com'),
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: imageFile != null
+                      ? FileImage(imageFile)
+                      : const NetworkImage('https://i.pravatar.cc/150?img=3')
+                            as ImageProvider,
+                ),
+                decoration: const BoxDecoration(color: Colors.green),
+              );
+            }),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Pengaturan'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
                 Get.to(() => const ProfileScreen());
-              } else if (value == 2) {
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.emoji_events),
+              title: const Text('Hadiah Saya'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Get.to(() => const RewardsScreen());
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('Tentang Aplikasi'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
                 Get.to(() => const AboutScreen());
-              }
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(value: 1, child: Text('Pengaturan')),
-              const PopupMenuItem(value: 2, child: Text('Tentang Aplikasi')),
-            ],
-            tooltip: 'Pilihan',
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

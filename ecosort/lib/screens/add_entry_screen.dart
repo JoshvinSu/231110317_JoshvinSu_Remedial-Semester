@@ -40,7 +40,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
     if (_descriptionController.text.isEmpty) {
       return;
     }
-    
+
     final newEntry = WasteEntry(
       id: Random().nextDouble().toString(),
       wasteType: _selectedWasteType,
@@ -64,9 +64,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('add_entry_title'.tr),
-      ),
+      appBar: AppBar(title: Text('add_entry_title'.tr)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -78,19 +76,22 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                 Radio<String>(
                   value: 'Plastik',
                   groupValue: _selectedWasteType,
-                  onChanged: (value) => setState(() => _selectedWasteType = value!),
+                  onChanged: (value) =>
+                      setState(() => _selectedWasteType = value!),
                 ),
                 Text('plastic'.tr),
                 Radio<String>(
                   value: 'Kertas',
                   groupValue: _selectedWasteType,
-                  onChanged: (value) => setState(() => _selectedWasteType = value!),
+                  onChanged: (value) =>
+                      setState(() => _selectedWasteType = value!),
                 ),
                 Text('paper'.tr),
                 Radio<String>(
                   value: 'Organik',
                   groupValue: _selectedWasteType,
-                  onChanged: (value) => setState(() => _selectedWasteType = value!),
+                  onChanged: (value) =>
+                      setState(() => _selectedWasteType = value!),
                 ),
                 Text('organic'.tr),
               ],
@@ -106,10 +107,17 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
             const SizedBox(height: 20),
             Row(
               children: [
-                Expanded(child: Text('${'date'.tr}: ${DateFormat.yMd().format(_selectedDate)}')),
+                Expanded(
+                  child: Text(
+                    '${'date'.tr}: ${DateFormat.yMd().format(_selectedDate)}',
+                  ),
+                ),
                 TextButton(
                   onPressed: _presentDatePicker,
-                  child: Text('choose_date'.tr, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'choose_date'.tr,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -118,7 +126,9 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _submitData,
-                style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 15)),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
                 child: Text('save'.tr),
               ),
             ),
