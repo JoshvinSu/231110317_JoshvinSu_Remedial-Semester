@@ -10,12 +10,12 @@ class WasteController extends GetxController {
     wasteEntries.add(entry);
   }
 
-  // --> PASTIKAN METHOD INI ADA <--
+  // Method untuk menghapus entri berdasarkan ID
   void deleteEntry(String id) {
     wasteEntries.removeWhere((entry) => entry.id == id);
   }
 
-  // --> PASTIKAN METHOD INI JUGA ADA <--
+  // Method untuk menyisipkan kembali entri (untuk fitur undo)
   void insertEntry(int index, WasteEntry entry) {
     wasteEntries.insert(index, entry);
   }

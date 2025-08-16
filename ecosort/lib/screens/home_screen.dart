@@ -1,10 +1,10 @@
 // File: lib/screens/home_screen.dart
 
+import 'package:ecosort/screens/about_screen.dart';
 import 'package:ecosort/screens/guide_screen.dart';
 import 'package:ecosort/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import '../controllers/waste_controller.dart';
 import 'add_entry_screen.dart';
@@ -21,6 +21,13 @@ class HomeScreen extends StatelessWidget {
         title: Text('dashboard_title'.tr),
         actions: [
           PopupMenuButton(
+            onSelected: (value) {
+              if (value == 1) {
+                Get.to(() => const ProfileScreen());
+              } else if (value == 2) {
+                Get.to(() => const AboutScreen());
+              }
+            },
             itemBuilder: (context) => [
               const PopupMenuItem(value: 1, child: Text('Pengaturan')),
               const PopupMenuItem(value: 2, child: Text('Tentang Aplikasi')),
@@ -34,7 +41,6 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gamification Section... (kode sebelumnya tidak diubah)
             Card(
               elevation: 4,
               child: Padding(
@@ -43,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'recycling_race'.tr,
+                      'weekly_target'.tr,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -52,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Obx(
                       () => Text(
-                        'recycling_progress'.trParams({
+                        'items_recycled'.trParams({
                           'count': wasteController.wasteEntries.length
                               .toString(),
                         }),
@@ -125,11 +131,9 @@ class HomeScreen extends StatelessWidget {
                   itemCount: wasteController.wasteEntries.length,
                   itemBuilder: (context, index) {
                     final entry = wasteController.wasteEntries[index];
-
-                    // --- PASTIKAN KODE DI BAWAH INI SUDAH BENAR ---
                     return Dismissible(
-                      key: Key(entry.id), // Kunci unik untuk setiap item
-                      direction: DismissDirection.endToStart, // Arah geser
+                      key: Key(entry.id),
+                      direction: DismissDirection.endToStart,
                       onDismissed: (direction) {
                         final deletedEntry = entry;
                         final entryIndex = index;
@@ -168,14 +172,43 @@ class HomeScreen extends StatelessWidget {
                         child: const Icon(Icons.delete, color: Colors.white),
                       ),
                       child: Card(
-                        // Card yang sebelumnya ada, sekarang di dalam 'child'
                         margin: const EdgeInsets.symmetric(vertical: 5),
                         child: ListTile(
                           leading: const Icon(Icons.recycling),
                           title: Text(entry.wasteType.tr),
                           subtitle: Text(entry.description),
-                          trailing: Text(
-                            DateFormat('dd MMM yyyy').format(entry.date),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                DateFormat('dd MMM yyyy').format(entry.date),
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  Get.defaultDialog(
+                                    title: "Konfirmasi Hapus",
+                                    middleText:
+                                        "Apakah Anda yakin ingin menghapus riwayat \"${entry.description}\"?",
+                                    textConfirm: "Hapus",
+                                    textCancel: "Batal",
+                                    confirmTextColor: Colors.white,
+                                    onConfirm: () {
+                                      wasteController.deleteEntry(entry.id);
+                                      Get.back(); // Close the dialog
+                                      Get.snackbar(
+                                        'Berhasil',
+                                        'Riwayat "${entry.description}" telah dihapus.',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -187,7 +220,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      // FloatingActionButton dan BottomNavigationBar tidak diubah...
       floatingActionButton: FloatingActionButton(
         tooltip: 'Tambah Catatan Baru',
         onPressed: () {
