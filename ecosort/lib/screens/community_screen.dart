@@ -1,5 +1,3 @@
-// File: lib/screens/community_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

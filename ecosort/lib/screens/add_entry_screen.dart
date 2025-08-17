@@ -1,5 +1,3 @@
-// File: lib/screens/add_entry_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/waste_controller.dart';

@@ -24,17 +24,14 @@ class WasteController extends GetxController {
     final RewardsController rewardsController = Get.find();
     int totalEntries = wasteEntries.length;
 
-    // Cek reward untuk 10 item
     if (totalEntries >= 10 && !rewardsController.rewards[0].isUnlocked.value) {
       rewardsController.unlockReward(0);
       _showRewardDialog(rewardsController.rewards[0]);
     }
-    // Cek reward untuk 25 item
     if (totalEntries >= 25 && !rewardsController.rewards[1].isUnlocked.value) {
       rewardsController.unlockReward(1);
       _showRewardDialog(rewardsController.rewards[1]);
     }
-    // Cek reward untuk 50 item
     if (totalEntries >= 50 && !rewardsController.rewards[2].isUnlocked.value) {
       rewardsController.unlockReward(2);
       _showRewardDialog(rewardsController.rewards[2]);
@@ -49,7 +46,7 @@ class WasteController extends GetxController {
       textCancel: "Tutup",
       confirmTextColor: Colors.white,
       onConfirm: () {
-        Get.back(); // Tutup dialog
+        Get.back();
         Get.to(() => const RewardsScreen());
       },
     );

@@ -8,10 +8,10 @@ class EducationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pusat Edukasi Daur Ulang'),
-        elevation: 2.0,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Pusat Edukasi Daur Ulang'),
+      //   elevation: 2.0,
+      // ), // <-- BARIS INI DIHAPUS
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [

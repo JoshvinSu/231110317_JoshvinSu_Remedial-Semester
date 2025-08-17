@@ -24,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
     final UserController userController = Get.find();
 
     return Scaffold(
-      appBar: AppBar(title: Text('profile'.tr)),
+      // appBar: AppBar(title: Text('profile'.tr)), // <-- BARIS INI DIHAPUS
       body: ListView(
         children: <Widget>[
           const SizedBox(height: 20),

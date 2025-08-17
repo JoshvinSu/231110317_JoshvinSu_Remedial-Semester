@@ -1,5 +1,3 @@
-// File: lib/screens/change_password_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,9 +52,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       return;
     }
 
-    // TODO: Tambahkan logika untuk mengirim data ke server di sini
-
-    Get.back(); // Kembali ke halaman profil
+    Get.back();
 
     Get.snackbar(
       'Berhasil',
@@ -124,7 +120,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Field Konfirmasi Password Baru
               TextField(
                 controller: _confirmPasswordController,
                 obscureText: _isConfirmPasswordObscure,
@@ -147,7 +142,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
               const SizedBox(height: 40),
 
-              // Tombol Simpan
               ElevatedButton(
                 onPressed: _submit,
                 style: ElevatedButton.styleFrom(

@@ -1,5 +1,3 @@
-// File: lib/main.dart
-
 import 'package:ecosort/controllers/rewards_controller.dart';
 import 'package:ecosort/controllers/theme_controller.dart';
 import 'package:ecosort/controllers/user_controller.dart';
@@ -34,9 +32,6 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-
-      // TAMBAHKAN BARIS INI
-      // untuk memastikan aplikasi selalu mulai dalam mode terang
       themeMode: ThemeMode.light,
 
       translations: AppTranslations(),

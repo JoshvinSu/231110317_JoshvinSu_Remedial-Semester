@@ -1,5 +1,3 @@
-// File: lib/screens/edit_profile_screen.dart
-
 import 'package:ecosort/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,8 +33,6 @@ class EditProfileScreen extends StatelessWidget {
                 },
                 child: CircleAvatar(
                   radius: 80,
-                  // Gunakan MemoryImage untuk menampilkan gambar dari bytes
-                  // Jika imageBytes null, gunakan NetworkImage sebagai fallback
                   backgroundImage: imageBytes != null
                       ? MemoryImage(imageBytes)
                       : const NetworkImage('https://i.pravatar.cc/150?img=3')
