@@ -5,7 +5,7 @@ import 'package:ecosort/controllers/theme_controller.dart';
 import 'package:ecosort/utils/app_translation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'screens/home_screen.dart';
+import 'screens/login_screen.dart'; // Import login_screen.dart
 import 'controllers/waste_controller.dart';
 
 void main() {
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       translations: AppTranslations(),
       locale: const Locale('id', 'ID'),
       fallbackLocale: const Locale('en', 'US'),
-      home: HomeScreen(),
+      home: const LoginScreen(), // Ganti HomeScreen() dengan LoginScreen()
       debugShowCheckedModeBanner: false,
     );
   }
