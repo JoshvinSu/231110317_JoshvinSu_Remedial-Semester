@@ -3,9 +3,11 @@
 import 'package:ecosort/controllers/profile_controller.dart';
 import 'package:ecosort/controllers/user_controller.dart';
 import 'package:ecosort/screens/about_screen.dart';
+import 'package:ecosort/screens/community_screen.dart'; // Import Community Screen
+import 'package:ecosort/screens/education_screen.dart'; // Import Education Screen
 import 'package:ecosort/screens/guide_screen.dart';
 import 'package:ecosort/screens/profile_screen.dart';
-import 'package:ecosort/screens/reward_screen.dart';
+import 'package:ecosort/screens/rewards_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -28,17 +30,15 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             Obx(() {
-              // Ganti dengan profileImageBytes
               final imageBytes = profileController.profileImageBytes.value;
               return UserAccountsDrawerHeader(
                 accountName: Text(userController.userName.value),
                 accountEmail: Text(userController.userEmail.value),
                 currentAccountPicture: CircleAvatar(
-                  // Gunakan MemoryImage, sama seperti di halaman lain
                   backgroundImage: imageBytes != null
                       ? MemoryImage(imageBytes)
                       : const NetworkImage('https://i.pravatar.cc/150?img=3')
-                            as ImageProvider,
+                          as ImageProvider,
                 ),
                 decoration: const BoxDecoration(color: Colors.green),
               );
@@ -47,23 +47,32 @@ class HomeScreen extends StatelessWidget {
               leading: const Icon(Icons.settings),
               title: const Text('Pengaturan'),
               onTap: () {
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context);
                 Get.to(() => const ProfileScreen());
               },
             ),
             ListTile(
               leading: const Icon(Icons.emoji_events),
-              title: const Text('Hadiah Saya'),
+              title: const Text('Hadiah & Lencana'), // Ubah teks
               onTap: () {
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context);
                 Get.to(() => const RewardsScreen());
+              },
+            ),
+            // Tambah menu baru
+            ListTile(
+              leading: const Icon(Icons.groups),
+              title: const Text('Komunitas'),
+              onTap: () {
+                Navigator.pop(context);
+                Get.to(() => const CommunityScreen());
               },
             ),
             ListTile(
               leading: const Icon(Icons.info_outline),
               title: const Text('Tentang Aplikasi'),
               onTap: () {
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context);
                 Get.to(() => const AboutScreen());
               },
             ),
@@ -93,8 +102,8 @@ class HomeScreen extends StatelessWidget {
                     Obx(
                       () => Text(
                         'items_recycled'.trParams({
-                          'count': wasteController.wasteEntries.length
-                              .toString(),
+                          'count':
+                              wasteController.wasteEntries.length.toString(),
                         }),
                       ),
                     ),
@@ -117,7 +126,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // Dummy Leaderboard
                     ListTile(
                       leading: const Icon(
                         Icons.emoji_events,
@@ -232,7 +240,7 @@ class HomeScreen extends StatelessWidget {
                                     confirmTextColor: Colors.white,
                                     onConfirm: () {
                                       wasteController.deleteEntry(entry.id);
-                                      Get.back(); // Close the dialog
+                                      Get.back();
                                       Get.snackbar(
                                         'Berhasil',
                                         'Riwayat "${entry.description}" telah dihapus.',
@@ -268,8 +276,8 @@ class HomeScreen extends StatelessWidget {
             label: 'home'.tr,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.book),
-            label: 'guide'.tr,
+            icon: const Icon(Icons.school), // Ganti ikon
+            label: 'Edukasi', // Ganti label
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.person),
@@ -279,7 +287,7 @@ class HomeScreen extends StatelessWidget {
         currentIndex: 0,
         onTap: (index) {
           if (index == 1) {
-            Get.to(() => const GuideScreen());
+            Get.to(() => const EducationScreen()); // Navigasi ke EducationScreen
           } else if (index == 2) {
             Get.to(() => const ProfileScreen());
           }

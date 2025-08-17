@@ -17,15 +17,15 @@ class Reward {
     required this.voucherCode,
     bool isUnlocked = false,
     bool isClaimed = false,
-  }) : isUnlocked = isUnlocked.obs,
-       isClaimed = isClaimed.obs;
+  })  : isUnlocked = isUnlocked.obs,
+        isClaimed = isClaimed.obs;
 }
 
 class RewardsController extends GetxController {
   var rewards = <Reward>[
     Reward(
       title: 'Pahlawan Daur Ulang',
-      description: 'Berhasil mencapai target 10 item mingguan!',
+      description: 'Berhasil mencapai target 10 item!',
       voucherCode: 'ECO-HERO-10',
     ),
     Reward(
@@ -61,7 +61,7 @@ class RewardsController extends GetxController {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Gunakan kode di bawah ini untuk menukarkan hadiah Anda:"),
+          const Text("Gunakan kode di bawah ini untuk menukarkan hadiah Anda:"),
           const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.all(10),

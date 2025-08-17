@@ -1,4 +1,3 @@
-import 'package:ecosort/screens/reward_screen.dart';
 import 'package:ecosort/screens/rewards_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
