@@ -1,10 +1,11 @@
 // File: lib/screens/home_screen.dart
 
+import 'dart:async';
 import 'package:ecosort/controllers/profile_controller.dart';
 import 'package:ecosort/controllers/user_controller.dart';
 import 'package:ecosort/screens/about_screen.dart';
-import 'package:ecosort/screens/community_screen.dart'; // Import Community Screen
-import 'package:ecosort/screens/education_screen.dart'; // Import Education Screen
+import 'package:ecosort/screens/community_screen.dart';
+import 'package:ecosort/screens/education_screen.dart';
 import 'package:ecosort/screens/guide_screen.dart';
 import 'package:ecosort/screens/profile_screen.dart';
 import 'package:ecosort/screens/rewards_screen.dart';
@@ -13,6 +14,54 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../controllers/waste_controller.dart';
 import 'add_entry_screen.dart';
+
+class DigitalClock extends StatefulWidget {
+  const DigitalClock({super.key});
+
+  @override
+  State<DigitalClock> createState() => _DigitalClockState();
+}
+
+class _DigitalClockState extends State<DigitalClock> {
+  late Timer _timer;
+  late DateTime _currentTime;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateTime();
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) => _updateTime(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _updateTime() {
+    setState(() {
+      _currentTime = DateTime.now().toUtc().add(const Duration(hours: 7));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String formattedTime = DateFormat('HH:mm:ss').format(_currentTime);
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 16.0),
+        child: Text(
+          '$formattedTime WIB',
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+}
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -24,7 +73,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('dashboard_title'.tr)),
+      appBar: AppBar(
+        title: Text('dashboard_title'.tr),
+        elevation: 4.0,
+        shadowColor: Colors.black.withOpacity(0.2),
+        actions: const [DigitalClock()],
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -38,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                   backgroundImage: imageBytes != null
                       ? MemoryImage(imageBytes)
                       : const NetworkImage('https://i.pravatar.cc/150?img=3')
-                          as ImageProvider,
+                            as ImageProvider,
                 ),
                 decoration: const BoxDecoration(color: Colors.green),
               );
@@ -53,13 +107,12 @@ class HomeScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.emoji_events),
-              title: const Text('Hadiah & Lencana'), // Ubah teks
+              title: const Text('Hadiah Saya'),
               onTap: () {
                 Navigator.pop(context);
                 Get.to(() => const RewardsScreen());
               },
             ),
-            // Tambah menu baru
             ListTile(
               leading: const Icon(Icons.groups),
               title: const Text('Komunitas'),
@@ -86,6 +139,8 @@ class HomeScreen extends StatelessWidget {
           children: [
             Card(
               elevation: 4,
+              // TAMBAHKAN BARIS INI PADA CARD
+              shadowColor: Colors.black.withOpacity(0.2),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -102,8 +157,8 @@ class HomeScreen extends StatelessWidget {
                     Obx(
                       () => Text(
                         'items_recycled'.trParams({
-                          'count':
-                              wasteController.wasteEntries.length.toString(),
+                          'count': wasteController.wasteEntries.length
+                              .toString(),
                         }),
                       ),
                     ),
@@ -276,8 +331,8 @@ class HomeScreen extends StatelessWidget {
             label: 'home'.tr,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.school), // Ganti ikon
-            label: 'Edukasi', // Ganti label
+            icon: const Icon(Icons.school),
+            label: 'Edukasi',
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.person),
@@ -287,7 +342,7 @@ class HomeScreen extends StatelessWidget {
         currentIndex: 0,
         onTap: (index) {
           if (index == 1) {
-            Get.to(() => const EducationScreen()); // Navigasi ke EducationScreen
+            Get.to(() => const EducationScreen());
           } else if (index == 2) {
             Get.to(() => const ProfileScreen());
           }

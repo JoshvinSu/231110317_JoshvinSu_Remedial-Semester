@@ -6,14 +6,14 @@ import 'package:ecosort/controllers/user_controller.dart';
 import 'package:ecosort/utils/app_translation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'screens/login_screen.dart'; // Import login_screen.dart
+import 'screens/login_screen.dart';
 import 'controllers/waste_controller.dart';
 
 void main() {
   Get.put(RewardsController());
   Get.put(WasteController());
-  Get.put(ThemeController()); // Inisialisasi ThemeController
-  Get.put(UserController()); // Tambahkan ini
+  Get.put(ThemeController());
+  Get.put(UserController());
   runApp(const MyApp());
 }
 
@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // GetMaterialApp secara otomatis mendengarkan perubahan tema dari Get.changeThemeMode
     return GetMaterialApp(
       title: 'EcoSort',
       theme: ThemeData(
@@ -35,11 +34,15 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // themeMode akan dikelola secara internal oleh GetX
+
+      // TAMBAHKAN BARIS INI
+      // untuk memastikan aplikasi selalu mulai dalam mode terang
+      themeMode: ThemeMode.light,
+
       translations: AppTranslations(),
       locale: const Locale('id', 'ID'),
       fallbackLocale: const Locale('en', 'US'),
-      home: const LoginScreen(), // Ganti HomeScreen() dengan LoginScreen()
+      home: const LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
