@@ -9,7 +9,6 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Gunakan Get.find() untuk mendapatkan instance controller yang sudah ada
     final ProfileController controller = Get.find();
 
     return Scaffold(
@@ -19,8 +18,6 @@ class EditProfileScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              // Cukup kembali ke halaman sebelumnya.
-              // Perubahan gambar sudah tersimpan di controller.
               Get.back();
             },
           ),
@@ -30,19 +27,20 @@ class EditProfileScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Bungkus dengan Obx agar UI di sini juga ikut berubah
             Obx(() {
-              final imageFile = controller.profileImage;
+              final imageBytes = controller.profileImageBytes.value;
               return GestureDetector(
                 onTap: () {
                   controller.pickImage();
                 },
                 child: CircleAvatar(
                   radius: 80,
-                  backgroundImage: imageFile != null
-                      ? FileImage(imageFile)
+                  // Gunakan MemoryImage untuk menampilkan gambar dari bytes
+                  // Jika imageBytes null, gunakan NetworkImage sebagai fallback
+                  backgroundImage: imageBytes != null
+                      ? MemoryImage(imageBytes)
                       : const NetworkImage('https://i.pravatar.cc/150?img=3')
-                            as ImageProvider,
+                          as ImageProvider,
                   child: const Align(
                     alignment: Alignment.bottomRight,
                     child: CircleAvatar(

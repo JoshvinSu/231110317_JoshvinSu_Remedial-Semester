@@ -6,7 +6,6 @@ import 'package:ecosort/screens/about_screen.dart';
 import 'package:ecosort/screens/guide_screen.dart';
 import 'package:ecosort/screens/profile_screen.dart';
 import 'package:ecosort/screens/reward_screen.dart';
-import 'package:ecosort/screens/rewards_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -29,13 +28,15 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             Obx(() {
-              final imageFile = profileController.profileImage;
+              // Ganti dengan profileImageBytes
+              final imageBytes = profileController.profileImageBytes.value;
               return UserAccountsDrawerHeader(
                 accountName: Text(userController.userName.value),
                 accountEmail: Text(userController.userEmail.value),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: imageFile != null
-                      ? FileImage(imageFile)
+                  // Gunakan MemoryImage, sama seperti di halaman lain
+                  backgroundImage: imageBytes != null
+                      ? MemoryImage(imageBytes)
                       : const NetworkImage('https://i.pravatar.cc/150?img=3')
                             as ImageProvider,
                 ),

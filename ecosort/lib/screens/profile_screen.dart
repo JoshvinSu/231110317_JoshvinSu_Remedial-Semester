@@ -1,6 +1,5 @@
 // File: lib/screens/profile_screen.dart
 
-import 'dart:io';
 import 'package:ecosort/controllers/notification_controller.dart';
 import 'package:ecosort/controllers/profile_controller.dart';
 import 'package:ecosort/controllers/theme_controller.dart';
@@ -18,8 +17,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfileController profileController = Get.put(ProfileController());
-    final NotificationController notificationController =
-        Get.put(NotificationController());
+    final NotificationController notificationController = Get.put(
+      NotificationController(),
+    );
     final ThemeController themeController = Get.find();
     final UserController userController = Get.find();
 
@@ -31,15 +31,17 @@ class ProfileScreen extends StatelessWidget {
           Column(
             children: <Widget>[
               Obx(() {
-                final imageFile = profileController.profileImage;
+                // Ambil data bytes gambar dari controller
+                final imageBytes = profileController.profileImageBytes.value;
                 return GestureDetector(
                   onTap: () => Get.to(() => const EditProfileScreen()),
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage: imageFile != null
-                        ? FileImage(imageFile)
+                    // Gunakan MemoryImage untuk menampilkan gambar dari bytes
+                    backgroundImage: imageBytes != null
+                        ? MemoryImage(imageBytes)
                         : const NetworkImage('https://i.pravatar.cc/150?img=3')
-                            as ImageProvider,
+                              as ImageProvider,
                     child: const Align(
                       alignment: Alignment.bottomRight,
                       child: CircleAvatar(
@@ -56,7 +58,9 @@ class ProfileScreen extends StatelessWidget {
                 () => Text(
                   userController.userName.value,
                   style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Obx(
