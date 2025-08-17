@@ -56,7 +56,12 @@ class SignupScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // TODO: Implement signup logic
-                Get.back(); // Go back to login screen after signup
+                Get.back(); // Kembali ke halaman login setelah daftar
+                Get.snackbar(
+                  'Berhasil!',
+                  'Akun Anda telah berhasil dibuat.',
+                  snackPosition: SnackPosition.BOTTOM,
+                );
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 15),

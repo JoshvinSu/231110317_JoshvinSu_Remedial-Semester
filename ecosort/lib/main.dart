@@ -2,6 +2,7 @@
 
 import 'package:ecosort/controllers/rewards_controller.dart';
 import 'package:ecosort/controllers/theme_controller.dart';
+import 'package:ecosort/controllers/user_controller.dart';
 import 'package:ecosort/utils/app_translation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ void main() {
   Get.put(RewardsController());
   Get.put(WasteController());
   Get.put(ThemeController()); // Inisialisasi ThemeController
+  Get.put(UserController()); // Tambahkan ini
   runApp(const MyApp());
 }
 

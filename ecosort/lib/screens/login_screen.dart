@@ -1,5 +1,6 @@
 // File: lib/screens/login_screen.dart
 
+import 'package:ecosort/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'home_screen.dart';
@@ -12,6 +13,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    final UserController userController = Get.find();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
@@ -48,6 +50,7 @@ class LoginScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // TODO: Implement login logic
+                userController.setEmail(emailController.text);
                 Get.off(() => HomeScreen()); // Navigate to home screen on successful login
               },
               style: ElevatedButton.styleFrom(

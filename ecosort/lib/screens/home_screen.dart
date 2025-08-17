@@ -1,6 +1,7 @@
 // File: lib/screens/home_screen.dart
 
 import 'package:ecosort/controllers/profile_controller.dart';
+import 'package:ecosort/controllers/user_controller.dart';
 import 'package:ecosort/screens/about_screen.dart';
 import 'package:ecosort/screens/guide_screen.dart';
 import 'package:ecosort/screens/profile_screen.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
 
   final WasteController wasteController = Get.find();
   final ProfileController profileController = Get.put(ProfileController());
+  final UserController userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +31,8 @@ class HomeScreen extends StatelessWidget {
             Obx(() {
               final imageFile = profileController.profileImage;
               return UserAccountsDrawerHeader(
-                accountName: const Text('Joshvin Su'),
-                accountEmail: const Text('joshvinsu@example.com'),
+                accountName: Text(userController.userName.value),
+                accountEmail: Text(userController.userEmail.value),
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: imageFile != null
                       ? FileImage(imageFile)
